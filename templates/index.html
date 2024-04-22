@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Twitter Sentiment Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .container {
+            margin-top: 20px; /* Reduced top margin for the container */
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 10px; /* Reduced bottom margin for the title */
+        }
+
+        .text-area {
+            width: 300px;
+        }
+
+        .twitter-logo {
+            width: 350px; /* Larger Twitter logo */
+            height: auto; /* Maintain aspect ratio */
+            vertical-align: middle; /* Align with text baseline */
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        .sentiment-image {
+            width: 40px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            Twitter Sentiment Analysis
+            <img class="twitter-logo" src="{{ url_for('static', filename='twitterlogo.jpg') }}" alt="Twitter Logo">
+        </h1>
+
+        <form method="POST" action="/analyze">
+            <div class="form-group">
+                <label for="comment">Enter your tweet/comment:</label>
+                <textarea class="form-control text-area" id="comment" name="comment" rows="2"></textarea> <!-- Smaller text area -->
+            </div>
+            <button type="submit" class="btn btn-primary">Analyze</button>
+        </form>
+
+        {% if sentiment is defined %}
+        <div>
+            {% if sentiment == 1 %}
+                <p style="color: green; font-weight: bold;">
+                    Positive Text! 
+                    <img class="sentiment-image" src="{{ url_for('static', filename='positive.png') }}" alt="Positive Emoji"> 
+                </p>
+            {% elif sentiment == 0 %}
+                <p style="color: red; font-weight: bold;">
+                    Negative Text! 
+                    <img class="sentiment-image" src="{{ url_for('static', filename='negative.jpeg') }}" alt="Negative Emoji"> 
+                </p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
